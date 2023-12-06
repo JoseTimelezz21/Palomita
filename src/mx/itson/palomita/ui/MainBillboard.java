@@ -6,18 +6,18 @@ package mx.itson.palomita.ui;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import mx.itson.palomita.entities.Hall;
+import mx.itson.palomita.entities.Billboard;
 
 /**
  *
- * @author José Alvarez and Omar Castelan
+ * @author José Alvarez
  */
-public class MainHall extends javax.swing.JFrame {
+public class MainBillboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form Hall
+     * Creates new form Billboard
      */
-    public MainHall() {
+    public MainBillboard() {
         initComponents();
     }
 
@@ -31,24 +31,24 @@ public class MainHall extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSearch = new javax.swing.JTable();
-        txtSearch = new javax.swing.JTextField();
+        tblBillboard = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblSearch.setModel(new javax.swing.table.DefaultTableModel(
+        tblBillboard.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Disponibilidad", "No. Sala"
+                "Pelicula", "Duracion", "Genero", "Sinopsis", "Actores", "Clasificacion", "Numero de sala", "Disponibilidad", "Fecha"
             }
         ));
-        jScrollPane1.setViewportView(tblSearch);
+        jScrollPane1.setViewportView(tblBillboard);
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -61,24 +61,24 @@ public class MainHall extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(157, 157, 157))
             .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSearch)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
 
         pack();
@@ -86,15 +86,19 @@ public class MainHall extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-          
-        DefaultTableModel model = (DefaultTableModel) tblSearch.getModel();
+        Billboard.getAll("");
+        DefaultTableModel model = (DefaultTableModel) tblBillboard.getModel();
         model.setRowCount(0);
-        List<Hall> hall = Hall.getAll(txtSearch.getText());
-        for(Hall h : hall){
+        List<Billboard> billboard = Billboard.getAll(txtSearch.getText());
+        for(Billboard b : billboard){
             model.addRow(new Object[]{
-                h.getIdHall(), h.getAvailability(), h.getHallNumber()
+                b.getMovie().getMovieName(), b.getMovie().getMovieDuration(), b.getMovie().getMovieGenre(),
+                b.getMovie().getSynopsisMovie(), b.getMovie().getNameActor(), b.getMovie().getMovieClassification(), b.getHall().getHallNumber(),
+                b.getHall().getAvailability(), b.getDate()
             });
         }
+       
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -114,13 +118,13 @@ public class MainHall extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainHall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainBillboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainHall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainBillboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainHall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainBillboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainHall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainBillboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -128,7 +132,7 @@ public class MainHall extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainHall().setVisible(true);
+                new MainBillboard().setVisible(true);
             }
         });
     }
@@ -136,7 +140,7 @@ public class MainHall extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblSearch;
+    private javax.swing.JTable tblBillboard;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

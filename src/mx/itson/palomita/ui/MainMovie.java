@@ -15,12 +15,12 @@ import mx.itson.palomita.modifiers.UpdateMovie;
  *
  * @author José Alvarez and Omar Castelan
  */
-public class Movies extends javax.swing.JFrame {
+public class MainMovie extends javax.swing.JFrame {
 
     /**
      * Creates new form Movies
      */
-    public Movies() {
+    public MainMovie() {
         initComponents();
     }
 
@@ -91,10 +91,10 @@ public class Movies extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        Movie.gatAll("");
+        Movie.getAll("");
         DefaultTableModel model = (DefaultTableModel) tblMovie.getModel();
         model.setRowCount(0);
-        List<Movie> movie = Movie.gatAll(txtSearch.getText());
+        List<Movie> movie = Movie.getAll(txtSearch.getText());
         for(Movie m : movie){
             model.addRow(new Object[]{
                 m.getMovieId(), m.getMovieName(),m.getSynopsisMovie(), m.getMovieDuration(),
@@ -120,20 +120,23 @@ public class Movies extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Movies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMovie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Movies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMovie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Movies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMovie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Movies.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMovie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Movies().setVisible(true);
+                new MainMovie().setVisible(true);
             }
         });
     }

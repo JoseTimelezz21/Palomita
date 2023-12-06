@@ -22,8 +22,14 @@ public class Hall {
     private String availability;    
     private String hallNumber;
     
-    
-    public static  List<Hall> gatAll(String filter){
+    /*
+    * @pharam String filter
+    * Se define un método estático que recupera una lista de objetos Hall desde una base de datos MySQL, filtrando los resultados según un número de sala proporcionado. 
+    * El método establece una conexión a la base de datos mediante la clase MySQLConnection y ejecuta una consulta SQL utilizando un filtro de número de sala. 
+    * Los resultados de la consulta se procesan mediante un bucle while que crea objetos Hall y los añade a una lista. Cualquier error durante la ejecución se captura y se imprime en la consola.
+    * La lista resultante, que contiene objetos Hall con información de salas de cine, se devuelve al llamador del método. 
+    */
+    public static  List<Hall> getAll(String filter){
     List<Hall> hall = new ArrayList();
     try{
         Connection conection = MySQLConnection.get();
@@ -44,6 +50,16 @@ public class Hall {
     }
     return hall;
 }
+    
+    /*
+    * @pharam String availability, String hallNumber
+    * El método recibe como parámetros la disponibilidad y el número de la sala. Primero, establece una conexión a la base de datos utilizando la clase MySQLConnection.
+    * Luego, ejecuta una consulta SQL de inserción que añade una nueva fila a la tabla "hall" con los valores proporcionados.
+    * El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de inserción.
+    * Si la inserción fue exitosa, la variable result se establece como true. Sin embargo, el manejo de excepciones es básico,
+    * limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código. 
+    */
+    
     public boolean save(String availability, String hallNumber){
     boolean result = false;
     try{
@@ -65,6 +81,18 @@ public class Hall {
     }
     return result;
     }
+    
+    /*
+    * @pharam int idHall, String availability, String hallNumber
+    * Se define un método para actualizar la información de una sala de cine en una base de datos MySQL. 
+    * El método toma como parámetros el identificador de la sala (idHall), la nueva disponibilidad y el nuevo número de sala. 
+    * Primero, establece una conexión a la base de datos utilizando la clase MySQLConnection. 
+    * Luego, ejecuta una consulta SQL de actualización que modifica la fila correspondiente en la tabla "hall" con los nuevos valores proporcionados.
+    * El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de actualización. 
+    * Si la actualización fue exitosa, la variable result se establece como true. Pero, el manejo de excepciones es básico, 
+    * limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código. 
+    *
+    */
     public boolean update(int idHall, String availability, String hallNumber){
     boolean result = false;
     try{
@@ -87,6 +115,14 @@ public class Hall {
     return result;
     }
     
+    /*
+    * @pharam int idHall
+    * método para eliminar una entrada de información de una sala de cine en una base de datos MySQL. 
+    * El método toma como parámetro el identificador de la sala (idHall). Primero, establece una conexión a la base de datos mediante la clase MySQLConnection. 
+    * Luego, ejecuta una consulta SQL de eliminación que borra la fila correspondiente en la tabla "hall" basándose en el identificador proporcionado. 
+    * El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de eliminación. Si la eliminación fue exitosa, la variable result se establece como true. 
+    * No obstante, el manejo de excepciones es básico, limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código.
+    */
     public boolean delete(int idHall){
     boolean result = false;
     try{

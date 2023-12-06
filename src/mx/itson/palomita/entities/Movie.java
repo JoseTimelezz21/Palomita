@@ -28,7 +28,16 @@ private String movieGenre;
 private String movieClassification;
 private String nameActor;
 
-public static  List<Movie> gatAll(String filter){
+
+/*
+* @pharam String filter
+* Se define un método estático que recupera una lista de objetos Movie desde una base de datos MySQL, filtrando los resultados según el nombre de la película. 
+* El método establece una conexión a la base de datos mediante la clase MySQLConnection y ejecuta una consulta SQL utilizando un filtro de nombre de película. 
+* Los resultados de la consulta se procesan mediante un bucle while que crea objetos Movie y los añade a una lista. Cada objeto Movie se inicializa con los datos correspondientes obtenidos de la consulta, 
+* como el identificador de la película, nombre, sinopsis, duración, género, nombre del actor y clasificación de la película. Cualquier error durante la ejecución se captura y se imprime en la consola. 
+* La lista resultante, que contiene objetos Movie con información detallada de películas, se devuelve al llamador del método. 
+*/
+public static  List<Movie> getAll(String filter){
     List<Movie> movie = new ArrayList();
     try{
         Connection conection = MySQLConnection.get();
@@ -54,10 +63,18 @@ public static  List<Movie> gatAll(String filter){
     }
     return movie;
 }
-  
+
+/*
+* pharam String name, String synopsis, String classification, String actor, String duration, String genre
+* Se define un método para insertar información de una película en una base de datos MySQL.
+* El método recibe como parámetros el nombre de la película, la sinopsis, la clasificación, el nombre del actor, la duración y el género. 
+* Primero, establece una conexión a la base de datos mediante la clase MySQLConnection. Luego, ejecuta una consulta SQL de inserción que añade una nueva fila a la tabla "movie" con los valores proporcionados.
+* El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de inserción. Si la inserción fue exitosa, la variable result se establece como true. 
+* Pero, el manejo de excepciones es básico, limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código.
+*/
 
 
- public boolean save(String name, String synopsis, String clasification, String actor, String duration, String genre){
+ public boolean save(String name, String synopsis, String classification, String actor, String duration, String genre){
     boolean result = false;
     try{
     Connection conexion = MySQLConnection.get();
@@ -68,7 +85,7 @@ public static  List<Movie> gatAll(String filter){
     statement.setString(3, duration);
     statement.setString(4, genre);
     statement.setString(5, actor);
-    statement.setString(6, clasification);
+    statement.setString(6, classification);
     statement.execute();
     
     result = statement.getUpdateCount() == 1;
@@ -80,8 +97,18 @@ public static  List<Movie> gatAll(String filter){
     }
     return result;
     }
+    /*
+    * @pharam int id, String name, String synopsis, String duration, String genre, String actor, String classification
+    * Se define un método para actualizar información de una película en una base de datos MySQL. 
+    * El método toma como parámetros el identificador de la película (id), el nuevo nombre, sinopsis, duración, género, nombre del actor y clasificación. 
+    * Primero, establece una conexión a la base de datos mediante la clase MySQLConnection. 
+    * Luego, ejecuta una consulta SQL de actualización que modifica la fila correspondiente en la tabla "movie" con los nuevos valores proporcionados. 
+    * El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de actualización. 
+    * Si la actualización fue exitosa, la variable result se establece como true. Sin embargo, el manejo de excepciones es básico, 
+    * limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código. 
+    */
 
-    public boolean update(int id, String name, String synopsis, String duration, String genre, String actor, String clasification){
+    public boolean update(int id, String name, String synopsis, String duration, String genre, String actor, String classification){
     boolean result = false;
     try{
     Connection conexion = MySQLConnection.get();
@@ -92,7 +119,7 @@ public static  List<Movie> gatAll(String filter){
     statement.setString(3, duration);
     statement.setString(4, genre);
     statement.setString(5, actor);
-    statement.setString(6, clasification);
+    statement.setString(6, classification);
     statement.setInt(7, id);
     statement.execute();
     
@@ -105,6 +132,16 @@ public static  List<Movie> gatAll(String filter){
     }
     return result;
     }
+    
+    /*
+    * @pharam int Id
+    * Se define un método para eliminar una entrada de información de una película en una base de datos MySQL. 
+    * El método toma como parámetro el identificador de la película (id). Primero, establece una conexión a la base de datos mediante la clase MySQLConnection. 
+    * Luego, ejecuta una consulta SQL de eliminación que borra la fila correspondiente en la tabla "movie" basándose en el identificador proporcionado. 
+    * El resultado de la operación se determina verificando si exactamente una fila fue afectada por la consulta de eliminación. Si la eliminación fue exitosa, la variable result se establece como true. 
+    * Pero, el manejo de excepciones es básico, limitándose a imprimir mensajes de error en la consola en caso de cualquier problema durante la ejecución del código. 
+    *
+    */
     public boolean delete(int id){
     boolean result = false;
     try{
